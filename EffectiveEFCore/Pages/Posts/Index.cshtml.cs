@@ -18,7 +18,6 @@ namespace EffectiveEFCore.Pages.Posts
         public List<DataAccessLayer.EFCore.Data.Posts> Posts { get; set; }
         public async System.Threading.Tasks.Task OnGetAsync()
         {
-            // Posts = await _context.GetAllPostsAsync();
             Posts = await _context.Posts.Take(20).ToListAsync();
         }
     }
