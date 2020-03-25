@@ -1,13 +1,14 @@
 ﻿using BenchmarkDotNet.Attributes;
-using DataAccessLayer.EFCore.Data;
 using Microsoft.EntityFrameworkCore;
+using StackoverflowDb.EFCore;
+using StackoverflowDb.EFCore.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Benchmark
 {
-    public class QueryBenchmark
+    public class StackoverflowDbBenchmark
     {
         StackOverflowContext _context;
 

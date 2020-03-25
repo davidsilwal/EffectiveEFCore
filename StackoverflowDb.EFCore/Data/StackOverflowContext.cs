@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StackoverflowDb.EFCore.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.EFCore.Data
+namespace StackoverflowDb.EFCore
 {
     public partial class StackOverflowContext : DbContext
     {
@@ -34,7 +35,7 @@ namespace DataAccessLayer.EFCore.Data
 
         public async Task<List<Posts>> GetPostByPostIdAsync(int id) => await _queryGetPostByPostId(this, id);
 
-            
+
 
         public StackOverflowContext(DbContextOptions<StackOverflowContext> options)
             : base(options)

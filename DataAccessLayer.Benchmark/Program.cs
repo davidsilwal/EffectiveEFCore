@@ -9,7 +9,7 @@ namespace DataAccessLayer.Benchmark
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run(typeof(QueryBenchmark));
+            var summary = BenchmarkRunner.Run(typeof(StackoverflowDbBenchmark));
         }
     }
 }

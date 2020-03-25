@@ -1,6 +1,6 @@
-﻿using DataAccessLayer.EFCore.Data;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using StackoverflowDb.EFCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +15,7 @@ namespace EffectiveEFCore.Pages.Posts
             _context = context;
         }
 
-        public List<DataAccessLayer.EFCore.Data.Posts> Posts { get; set; }
+        public List<StackoverflowDb.EFCore.Data.Posts> Posts { get; set; }
         public async System.Threading.Tasks.Task OnGetAsync()
         {
             Posts = await _context.Posts.Take(20).ToListAsync();

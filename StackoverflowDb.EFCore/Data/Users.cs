@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccessLayer.EFCore.Data
+namespace StackoverflowDb.EFCore.Data
 {
     public partial class Users
     {
