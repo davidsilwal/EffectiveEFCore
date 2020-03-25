@@ -35,8 +35,11 @@ namespace DataAccessLayer.Benchmark
 
         public void Take20_CompiledQuery()
         {
-            var goodQuery = EF.CompileQuery<StackOverflowContext, List<Posts>>((context) =>
-                  context.Posts.Take(20).ToList());
+            var goodQuery = EF.CompileQuery<StackOverflowContext, IEnumerable<StackoverflowDb.EFCore.Data.Posts>>((context) =>
+                             context.Posts.Take(20));
+
+            var result = goodQuery.Invoke(_context).ToList();
+
 
         }
 

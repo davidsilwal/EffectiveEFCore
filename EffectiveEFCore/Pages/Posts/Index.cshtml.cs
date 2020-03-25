@@ -16,9 +16,14 @@ namespace EffectiveEFCore.Pages.Posts
         }
 
         public List<StackoverflowDb.EFCore.Data.Posts> Posts { get; set; }
-        public async System.Threading.Tasks.Task OnGetAsync()
+        public void OnGet()
         {
-            Posts = await _context.Posts.Take(20).ToListAsync();
+            Posts = _context.Posts.Take(20).ToList();
+
+            //var goodQuery = EF.CompileQuery<StackOverflowContext, IEnumerable<StackoverflowDb.EFCore.Data.Posts>>((context) =>
+            //                         context.Posts.Take(20));
+
+            //Posts = goodQuery.Invoke(_context).ToList();
         }
     }
 }
