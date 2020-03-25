@@ -33,7 +33,7 @@ namespace EffectiveEFCore
                     .UseLoggerFactory(logger)
                     .EnableDetailedErrors()
                     .EnableSensitiveDataLogging()
-                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), sql => sql.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), sql => sql.MigrationsAssembly(typeof(StackOverflowContext).Assembly.FullName));
             });
             services.AddRazorPages();
         }

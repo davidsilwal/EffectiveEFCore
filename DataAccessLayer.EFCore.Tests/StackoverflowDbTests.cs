@@ -16,7 +16,7 @@ namespace DataAccessLayer.EFCore.Tests
         public StackoverflowDbTests()
         {
             var option = new DbContextOptionsBuilder<StackOverflowContext>();
-            var conn = "Server=(localdb)\\mssqllocaldb;Database=StackOverflow2010;Trusted_Connection=True;";
+            var conn = "Server=.;Database=StackOverflow2010;Trusted_Connection=True;";
             option.UseSqlServer(conn);
 
             _context = new StackOverflowContext(option.Options);

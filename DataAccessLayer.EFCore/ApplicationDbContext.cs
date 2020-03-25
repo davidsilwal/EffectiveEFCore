@@ -23,7 +23,6 @@ namespace DataAccessLayer.EFCore
     }
 
 
-
     public class ApplicationDbContext : DbContext
     {
         public static readonly ILoggerFactory _loggerFactory = LoggerFactory.Create(builder =>
@@ -37,7 +36,7 @@ namespace DataAccessLayer.EFCore
             optionsBuilder.EnableSensitiveDataLogging();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EFCoreOptimization;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=EFCoreOptimization;Trusted_Connection=True;");
             }
         }
 

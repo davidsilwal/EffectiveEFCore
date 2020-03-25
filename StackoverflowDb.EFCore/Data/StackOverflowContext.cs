@@ -50,16 +50,42 @@ namespace StackoverflowDb.EFCore
         public virtual DbSet<Votes> Votes { get; set; }
 
         public virtual DbSet<PostComments> PostComments { get; set; }
+        public virtual DbSet<MemoryOptimizedPosts> MemoryOptimizedPosts { get; set; }
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            //to view
             modelBuilder.Entity<PostComments>(entity =>
             {
                 entity.HasNoKey();
                 entity.ToView("GetPostComments");
+            });
+                     
+            //to memory optimized table
+            modelBuilder.Entity<MemoryOptimizedPosts>(entity =>
+            {
+                entity.Property(e => e.Body).IsRequired();
+
+                entity.Property(e => e.ClosedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CommunityOwnedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LastActivityDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LastEditDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LastEditorDisplayName).HasMaxLength(40);
+
+                entity.Property(e => e.Tags).HasMaxLength(150);
+
+                entity.Property(e => e.Title).HasMaxLength(250);
+
+                entity.IsMemoryOptimized();
             });
 
             modelBuilder.Entity<Badges>(entity =>

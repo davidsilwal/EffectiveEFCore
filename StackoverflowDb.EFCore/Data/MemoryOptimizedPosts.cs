@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace StackoverflowDb.EFCore.Data
 {
-
-
-
-    public partial class Posts
+    public partial class MemoryOptimizedPosts
     {
         public int Id { get; set; }
         public int? AcceptedAnswerId { get; set; }
