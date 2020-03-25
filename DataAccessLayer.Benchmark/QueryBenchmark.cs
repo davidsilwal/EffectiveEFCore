@@ -1,10 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Microsoft.EntityFrameworkCore;
 using StackoverflowDb.EFCore;
-using StackoverflowDb.EFCore.Data;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Benchmark
 {
@@ -25,9 +23,9 @@ namespace DataAccessLayer.Benchmark
 
         [Benchmark(Description = "Take 20")]
 
-        public async Task GetAllPost_CompiledQueryAsync()
+        public void Take20_Default()
         {
-            await _context.Posts.Take(20).ToListAsync();
+            _context.Posts.Take(20).ToList();
         }
 
 
