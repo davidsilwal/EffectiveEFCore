@@ -49,10 +49,19 @@ namespace StackoverflowDb.EFCore
         public virtual DbSet<VoteTypes> VoteTypes { get; set; }
         public virtual DbSet<Votes> Votes { get; set; }
 
+        public virtual DbSet<PostComments> PostComments { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<PostComments>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToView("GetPostComments");
+            });
+
             modelBuilder.Entity<Badges>(entity =>
             {
                 entity.Property(e => e.Date).HasColumnType("datetime");

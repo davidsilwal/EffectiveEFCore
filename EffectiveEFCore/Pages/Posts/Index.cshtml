@@ -8,21 +8,25 @@
 
 Posts
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-        <td>Id</td>
-        <td>Body</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Posts)
-        {
+@if (Model.Posts != default)
+{
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td> @item.Id</td> 
-                <td> @item.Body</td> 
+                <td>Id</td>
+                <td>Body</td>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Posts)
+            {
+                <tr>
+                    <td> @item.Id</td>
+                    <td> @item.Body</td>
+                </tr>
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+
