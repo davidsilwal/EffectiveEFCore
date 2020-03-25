@@ -51,8 +51,8 @@ namespace DataAccessLayer.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Posts>()
-                .IsMemoryOptimized();
+                modelBuilder.Entity<Posts>()
+                    .IsMemoryOptimized();
 
             modelBuilder.Entity<Person>().OwnsOne(typeof(Address), "Address");
 

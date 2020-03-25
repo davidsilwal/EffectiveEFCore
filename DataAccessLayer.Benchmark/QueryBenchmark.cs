@@ -6,9 +6,17 @@ using System.Linq;
 
 namespace DataAccessLayer.Benchmark
 {
+    [MemoryDiagnoser]
+    [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.NetCoreApp31)]
+    [ThreadingDiagnoser]
+    [RPlotExporter, RankColumn]
     public class StackoverflowDbBenchmark
     {
         StackOverflowContext _context;
+
+        System.Func<StackOverflowContext, IEnumerable<StackoverflowDb.EFCore.Data.Posts>> goodQuery = EF.CompileQuery<StackOverflowContext, IEnumerable<StackoverflowDb.EFCore.Data.Posts>>((context) =>
+                  context.Posts.Take(20));
+
 
         [GlobalSetup]
         public void Setup()
@@ -18,6 +26,7 @@ namespace DataAccessLayer.Benchmark
             option.UseSqlServer(conn);
 
             _context = new StackOverflowContext(option.Options);
+      
         }
 
 
@@ -33,12 +42,7 @@ namespace DataAccessLayer.Benchmark
 
         public void Take20_CompiledQuery()
         {
-            var goodQuery = EF.CompileQuery<StackOverflowContext, IEnumerable<StackoverflowDb.EFCore.Data.Posts>>((context) =>
-                             context.Posts.Take(20));
-
-            var result = goodQuery.Invoke(_context).ToList();
-
-
+            goodQuery.Invoke(_context).ToList();
         }
 
     }
