@@ -3,38 +3,36 @@ using StackoverflowDb.EFCore.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace StackoverflowDb.EFCore
 {
     public partial class StackOverflowContext : DbContext
     {
 
-        private static Func<StackOverflowContext, int, Task<Posts>> _getPost =
-         EF.CompileAsyncQuery((StackOverflowContext context, int id) =>
+        private static Func<StackOverflowContext, int, Posts> _getPost =
+         EF.CompileQuery((StackOverflowContext context, int id) =>
              context.Posts
                     .Where(c => c.Id == id)
                     .FirstOrDefault());
 
-        private static readonly Func<StackOverflowContext, Task<List<Posts>>> _queryGetAllPosts =
-            EF.CompileAsyncQuery((StackOverflowContext db) => db.Posts.Take(50).AsNoTracking().ToList());
+        private static readonly Func<StackOverflowContext, List<Posts>> _queryGetAllPosts =
+            EF.CompileQuery((StackOverflowContext db) => db.Posts.Take(20).AsNoTracking().ToList());
 
-        private static readonly Func<StackOverflowContext, int, Task<List<Posts>>> _queryGetPost =
-            EF.CompileAsyncQuery((StackOverflowContext db, int id) =>
+        private static readonly Func<StackOverflowContext, int, List<Posts>> _queryGetPost =
+            EF.CompileQuery((StackOverflowContext db, int id) =>
                 db.Posts.Where(a => a.Id == id).AsNoTracking().ToList());
 
-        private static readonly Func<StackOverflowContext, int, Task<List<Posts>>> _queryGetPostByPostId =
-            EF.CompileAsyncQuery((StackOverflowContext db, int id) => db.Posts.Where(a => a.Id == id).AsNoTracking()
+        private static readonly Func<StackOverflowContext, int, List<Posts>> _queryGetPostByPostId =
+            EF.CompileQuery((StackOverflowContext db, int id) => db.Posts.Where(a => a.Id == id).AsNoTracking()
                 .ToList());
 
-        public async Task<Posts> GePostAsync(int id) => await _getPost(this, id);
+        public Posts GePost(int id) => _getPost(this, id);
 
-        public async Task<List<Posts>> GetAllPostsAsync() => await _queryGetAllPosts(this);
+        public List<Posts> GetAllTop20Posts() => _queryGetAllPosts(this);
 
-        public async Task<List<Posts>> GetPostsAsync(int id) => await _queryGetPost(this, id);
+        public List<Posts> GetPostsAsync(int id) => _queryGetPost(this, id);
 
-        public async Task<List<Posts>> GetPostByPostIdAsync(int id) => await _queryGetPostByPostId(this, id);
-
+        public List<Posts> GetPostByPostId(int id) => _queryGetPostByPostId(this, id);
 
 
         public StackOverflowContext(DbContextOptions<StackOverflowContext> options)
