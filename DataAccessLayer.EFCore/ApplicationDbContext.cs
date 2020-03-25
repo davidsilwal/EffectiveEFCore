@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DataAccessLayer.EFCore
 {
@@ -25,10 +26,25 @@ namespace DataAccessLayer.EFCore
 
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+        public static readonly ILoggerFactory _loggerFactory = LoggerFactory.Create(builder =>
         {
+            builder.AddConsole();
+        });
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLoggerFactory(_loggerFactory);
+            optionsBuilder.EnableSensitiveDataLogging();
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=EFCoreOptimization;Trusted_Connection=True;");
+            }
         }
+
+        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        //: base(options)
+        //{
+        //}
 
 
         public virtual DbSet<Posts> Posts { get; set; }
@@ -39,8 +55,6 @@ namespace DataAccessLayer.EFCore
                 .IsMemoryOptimized();
 
             modelBuilder.Entity<Person>().OwnsOne(typeof(Address), "Address");
-
-
 
 
             base.OnModelCreating(modelBuilder);
