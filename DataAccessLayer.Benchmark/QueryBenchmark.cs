@@ -8,7 +8,8 @@ namespace DataAccessLayer.Benchmark
 {
     [MemoryDiagnoser]
     [SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.NetCoreApp31)]
-    // [MarkdownExporter, AsciiDocExporter, HtmlExporter, CsvExporter, RPlotExporter]
+    [RankColumn]
+     // [MarkdownExporter, AsciiDocExporter, HtmlExporter, CsvExporter, RPlotExporter]
     public class StackoverflowDbBenchmark
     {
         StackOverflowContext _context;
